@@ -37,8 +37,11 @@
 }
 
 .register-form input[type="email"],
-.register-form input[type="password"] {
-  width: calc(100% - 22px);
+.register-form input[type="password"],
+.register-form input[type="text"],
+.register-form input[type="date"],
+.register-form .react-datepicker-custom-input {
+  width: calc(100% - 22px); /* Ajuste para padding e borda */
   padding: 1rem;
   margin-bottom: 1.5rem;
   border: 1px solid #7f8c8d;
@@ -50,7 +53,10 @@
 }
 
 .register-form input[type="email"]:focus,
-.register-form input[type="password"]:focus {
+.register-form input[type="password"]:focus,
+.register-form input[type="text"]:focus,
+.register-form input[type="date"]:focus,
+.register-form .react-datepicker-custom-input:focus {
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
@@ -106,7 +112,10 @@
   }
 
   .register-form input[type="email"],
-  .register-form input[type="password"] {
+  .register-form input[type="password"],
+  .register-form input[type="text"],
+  .register-form input[type="date"],
+  .register-form .react-datepicker-custom-input {
     padding: 0.8rem 1rem;
     margin-bottom: 1rem;
     font-size: 0.95rem;
@@ -139,7 +148,10 @@
   }
 
   .register-form input[type="email"],
-  .register-form input[type="password"] {
+  .register-form input[type="password"],
+  .register-form input[type="text"],
+  .register-form input[type="date"],
+  .register-form .react-datepicker-custom-input {
     padding: 0.7rem 0.8rem;
     margin-bottom: 0.8rem;
     font-size: 0.9rem;

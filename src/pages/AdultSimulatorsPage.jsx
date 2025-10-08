@@ -8,49 +8,52 @@ import FirstMillion from '../components/simulators/FirstMillion';
 import HousingLoan from '../components/simulators/HousingLoan';
 import LifeTimeCost from '../components/simulators/LifeTimeCost';
 import MaxHouseValue from '../components/simulators/MaxHouseValue';
+import { useAuth } from '../context/AuthContext'; // Importa useAuth
 
 function AdultSimulatorsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedSimulatorType, setSelectedSimulatorType] = useState(null); // Armazenar o tipo como string
+  const [selectedSimulatorType, setSelectedSimulatorType] = useState(null);
+
+  const { userFavorites, toggleFavorite } = useAuth(); // Obtém favoritos e a função de toggle
 
   const simulators = [
     {
-      id: 1,
+      id: 'euribor', // IDs únicos para simuladores
       title: 'Simulador Euribor',
       description: 'Calcule o impacto da Euribor no seu crédito habitação.',
       imageUrl: 'https://cdn-icons-png.flaticon.com/128/3487/3487141.png',
-      type: 'EuriborSimulator' // Usar uma string para identificar o simulador
+      type: 'EuriborSimulator'
     },
     {
-      id: 2,
+      id: 'financial-independence',
       title: 'Simulador Independência Financeira',
       description: 'Descubra quanto tempo levará para alcançar a independência financeira.',
       imageUrl: 'https://cdn-icons-png.flaticon.com/128/18234/18234121.png',
       type: 'FinancialIndependence'
     },
     {
-      id: 3,
+      id: 'first-million',
       title: 'Simulador Primeiro Milhão',
       description: 'Planeie a sua jornada para o primeiro milhão.',
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/190/190411.png',
       type: 'FirstMillion'
     },
     {
-      id: 4,
+      id: 'housing-loan',
       title: 'Simulador de Crédito Habitação',
       description: 'Analise as condições do seu crédito habitação.',
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png',
       type: 'HousingLoan'
     },
     {
-      id: 5,
+      id: 'lifetime-cost',
       title: 'Simulador Custo de Vida',
       description: 'Calcule o custo total dos seus bens ao longo da vida útil.',
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
       type: 'LifeTimeCost'
     },
     {
-      id: 6,
+      id: 'max-house-value',
       title: 'Simulador Valor Máximo da Casa',
       description: 'Determine o valor máximo que pode pagar por uma casa.',
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/1828/1828884.png',
@@ -88,10 +91,13 @@ function AdultSimulatorsPage() {
         {simulators.map(simulator => (
           <SimulatorCard
             key={simulator.id}
+            simulatorId={simulator.id} // Passa o ID
             title={simulator.title}
             description={simulator.description}
             imageUrl={simulator.imageUrl}
-            onAccessSimulator={() => handleOpenModal(simulator.type)} // Passar o tipo do simulador
+            onAccessSimulator={() => handleOpenModal(simulator.type)}
+            isFavorite={userFavorites.includes(simulator.id)} // Verifica se é favorito
+            onToggleFavorite={toggleFavorite} // Passa a função de toggle
           />
         ))}
       </div>

@@ -1,6 +1,6 @@
-# INPI Project
+# Own Project
 
-Welcome to the INPI Project! This application is a React-based web platform designed to provide a comprehensive suite of adult simulators, private courses, and a dedicated contact area. It features a modern, responsive design and integrates Firebase for user authentication (login/registration) and password recovery.
+Welcome to the Own Project! This application is a React-based web platform designed to provide a comprehensive suite of adult simulators, private courses, and a dedicated contact area. It features a modern, responsive design and integrates Firebase for user authentication (login/registration) and password recovery.
 
 ## Table of Contents
 
@@ -52,7 +52,7 @@ Make sure you have Node.js and npm (or Yarn) installed on your machine.
 1.  **Clone the repository:**
     ```bash
     git clone <your-repository-url>
-    cd inpi-project
+    cd oenproject
     ```
 2.  **Install dependencies:**
     ```bash

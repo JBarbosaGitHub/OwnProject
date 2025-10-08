@@ -1,0 +1,87 @@
+.favorites-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #1f2a3a;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: #ecf0f1;
+  text-align: center;
+  min-height: calc(100vh - 180px); /* Ajuste conforme a altura do header e footer */
+}
+
+.favorites-container h1 {
+  color: #3498db;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.favorites-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: #bdc3c7;
+}
+
+/* Reutilizando os estilos de grid de simuladores, se aplicável */
+.favorites-container .simulators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Estilos para o card do simulador (reaproveitar estilos de AdultSimulators.css ou definir específicos, se necessário) */
+/* Certifique-se de que os estilos de SimulatorCard em AdultSimulators.css são genéricos o suficiente */
+
+/* Mensagem de carregamento */
+.favorites-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.5rem;
+  color: #ecf0f1;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+  .favorites-container {
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  .favorites-container h1 {
+    font-size: 2rem;
+  }
+
+  .favorites-container p {
+    font-size: 1rem;
+  }
+
+  .favorites-container .simulators-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorites-container {
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .favorites-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .favorites-container p {
+    font-size: 0.95rem;
+  }
+
+  .favorites-container .simulators-grid {
+    gap: 15px;
+  }
+}

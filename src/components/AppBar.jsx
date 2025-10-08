@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import PaidSharpIcon from '@mui/icons-material/PaidSharp';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -21,12 +21,16 @@ const pages = [
   { name: 'Cursos', path: '/cursos' },
   { name: 'Contacte-nos', path: '/contacte-nos' },
 ];
-const settings = ['Perfil'];
+const settings = [
+  { name: 'Perfil', path: '/profile' },
+  { name: 'Meus Favoritos', path: '/favorites' }, // Novo item para favoritos
+  // Outros itens de configuração podem ser adicionados aqui
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, userName, isAdmin } = useAuth(); // Obtém isAdmin do contexto
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -60,7 +64,7 @@ function ResponsiveAppBar() {
     <AppBar position="static" sx={{ borderRadius: '10px', marginBottom: '10px', backgroundColor: '#007DAB' }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <PaidSharpIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <CurrencyExchangeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -76,7 +80,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            INPI PROJECT
+            OwnProject
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -123,7 +127,7 @@ function ResponsiveAppBar() {
               )}
             </Menu>
           </Box>
-          <PaidSharpIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <CurrencyExchangeIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -140,7 +144,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            INPI PROJECT
+            OwnProject
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -205,37 +209,46 @@ function ResponsiveAppBar() {
                 Registar
               </Button>
             )}
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar />
-              </IconButton>
-            </Tooltip>
+
+            {currentUser && (
+              <Tooltip title={userName || "Open settings"}> {/* Tooltip com o nome do utilizador */}
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar>{userName ? userName.charAt(0).toUpperCase() : ''}</Avatar> {/* Exibe a primeira letra do nome */}
+                </IconButton>
+              </Tooltip>
+            )}
+
             {currentUser && (
               <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu} component={Link} to={setting.path}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting.name} onClick={handleCloseUserMenu} component={Link} to={setting.path}>
+                    <Typography sx={{ textAlign: 'center' }}>{setting.name}</Typography>
+                  </MenuItem>
+                ))}
+                {isAdmin && ( // Apenas mostra o link se for admin
+                  <MenuItem onClick={handleCloseUserMenu} component={Link} to="/admin-dashboard">
+                    <Typography sx={{ textAlign: 'center' }}>Admin Dashboard</Typography>
+                  </MenuItem>
+                )}
+                <MenuItem onClick={handleLogout}>
+                  <Typography sx={{ textAlign: 'center' }}>Sair</Typography>
                 </MenuItem>
-              ))}
-              <MenuItem onClick={handleLogout}>
-                <Typography sx={{ textAlign: 'center' }}>Sair</Typography>
-              </MenuItem>
-            </Menu>
+              </Menu>
             )}
           </Box>
         </Toolbar>
